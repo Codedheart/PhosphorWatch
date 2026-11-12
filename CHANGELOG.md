@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.2
+
+- Fixed: watching a channel always showed Twitch's "content is unavailable / Browse channels" page. Twitch retired the old pop-out player address, so PhosphorWatch now uses player.twitch.tv.
+
 ## v0.1.0
 
 First release.

@@ -31,7 +31,7 @@ def app(tmp_path, monkeypatch):
 def test_watch_loads_popout_player(app):
     api = appmod.Api(app)
     assert api.watch("https://twitch.tv/Shroud") == {"ok": True}
-    assert app.window.calls[-1] == ("url", "https://www.twitch.tv/popout/shroud/player?parent=twitch.tv")
+    assert app.window.calls[-1] == ("url", "https://player.twitch.tv/?channel=shroud&parent=twitch.tv")
     assert app.current == "shroud" and app.cfg["last_channel"] == "shroud"
     assert "shroud" in app.window.title
     assert api.watch("not a name")["ok"] is False

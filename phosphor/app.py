@@ -20,7 +20,7 @@ from .version import VERSION
 
 UPDATE_CHECK_SEC = 6 * 3600     # re-check GitHub every 6 hours while open
 FIRST_CHECK_SEC = 4             # first check shortly after start-up
-PLAYER_URL = "https://www.twitch.tv/popout/{}/player?parent=twitch.tv"
+PLAYER_URL = "https://player.twitch.tv/?channel={}&parent=twitch.tv"   # Twitch retired /popout/<name>/player
 LOGIN_URL = "https://www.twitch.tv/login"
 
 
