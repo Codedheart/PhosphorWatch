@@ -1,0 +1,113 @@
+/* PhosphorWatch theme: shared by the home screen and the overlay on Twitch pages.
+   Palette roles match phosphor/themes.py (fg mid dim glow bg scan warn late) and are
+   set as CSS variables by pwApplyPalette(). */
+.pw-root {
+  --fg: #5CFF7A; --mid: #2FBF55; --dim: #1D7A35; --glow: #0E3A1A;
+  --bg: #020904; --scan: #000000; --warn: #E8FF5C; --late: #FF3B3B;
+  --fs: 12px; --fs-big: 13px; --bar-h: 26px; --ico: 12px;
+  font-family: "Lucida Console", Consolas, monospace;
+  font-size: var(--fs);
+  color: var(--fg);
+  text-shadow: -1px 0 var(--glow), 1px 0 var(--glow), 0 1px var(--glow);
+  -webkit-font-smoothing: none;
+}
+.pw-root.vt {
+  font-family: "PW VT323", "Lucida Console", monospace;
+  --fs: 20px; --fs-big: 22px; --bar-h: 28px; --ico: 12px;
+}
+.pw-root * { box-sizing: border-box; }
+.pw-root ::selection { background: var(--dim); color: var(--fg); }
+
+/* double CRT frame, like the sibling apps */
+.pw-frame { position: absolute; inset: 0; pointer-events: none; z-index: 40;
+  border: 1px solid var(--dim); }
+.pw-frame::after { content: ""; position: absolute; inset: 1px; border: 1px solid var(--glow); }
+
+/* scanlines: 1px line every 3px in the palette's scan colour */
+.pw-scanned { position: relative; }
+.pw-scanned::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, var(--scan) 0 1px, transparent 1px 3px);
+  opacity: 0.55;
+}
+
+/* header bar */
+.pw-bar {
+  display: flex; align-items: center; gap: 2px;
+  height: var(--bar-h); padding: 0 6px 0 9px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--glow);
+  user-select: none; white-space: nowrap;
+}
+.pw-drag { flex: 1; min-width: 0; height: 100%; display: flex; align-items: center; cursor: move; overflow: hidden; }
+.pw-status { overflow: hidden; text-overflow: ellipsis; text-shadow: none; }
+.pw-status .title { color: var(--dim); }
+.pw-status .chan { color: var(--mid); }
+.pw-status.warn { color: var(--warn); }
+.pw-status.pw-link { cursor: pointer; }
+.pw-status.pw-link:hover { color: var(--fg); }
+
+.pw-ico { width: var(--ico); height: var(--ico); display: block; }
+.pw-btn {
+  color: var(--mid); background: transparent; border: 0; padding: 4px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.pw-btn:hover { color: var(--fg); }
+.pw-btn[data-a="pin"] { color: var(--dim); }
+.pw-btn[data-a="pin"].on { color: var(--fg); }
+.pw-btn.x:hover { color: var(--late); }
+
+/* text buttons (WATCH, dialog buttons) */
+.pw-tbtn {
+  font: inherit; color: var(--mid); text-shadow: inherit;
+  background: transparent; border: 1px solid var(--dim);
+  padding: 0 8px; height: calc(var(--fs) + 10px); cursor: pointer; white-space: nowrap;
+}
+.pw-tbtn:hover { color: var(--fg); border-color: var(--mid); }
+
+.pw-input {
+  font: inherit; color: var(--fg); text-shadow: none;
+  background: var(--glow); border: 1px solid var(--dim); caret-color: var(--fg);
+  height: calc(var(--fs) + 10px); padding: 0 6px; outline: none;
+}
+.pw-input:focus { border-color: var(--mid); }
+.pw-input::placeholder { color: var(--dim); }
+
+/* resize handles (window is frameless) */
+.pw-grip { position: absolute; z-index: 45; }
+.pw-grip.e  { top: 0; right: 0; width: 5px; height: 100%; cursor: ew-resize; }
+.pw-grip.s  { left: 0; bottom: 0; width: 100%; height: 5px; cursor: ns-resize; }
+.pw-grip.se { right: 0; bottom: 0; width: 14px; height: 14px; cursor: nwse-resize;
+  background: linear-gradient(135deg, transparent 0 58%, var(--dim) 58% 66%, transparent 66% 76%, var(--dim) 76% 84%, transparent 84%); }
+
+/* right-click menu */
+.pw-menu {
+  position: absolute; z-index: 70; pointer-events: auto;
+  min-width: 190px; max-height: calc(100% - 8px); overflow-y: auto;
+  background: var(--bg); border: 1px solid var(--dim); box-shadow: 0 0 0 1px var(--glow);
+  padding: 3px 0; font-size: var(--fs); user-select: none;
+}
+.pw-menu::-webkit-scrollbar { width: 4px; }
+.pw-menu::-webkit-scrollbar-thumb { background: var(--dim); }
+.pw-mi { display: flex; gap: 6px; padding: 1px 10px 1px 4px; cursor: pointer; color: var(--fg); white-space: nowrap; }
+.pw-mi .mark { width: 1em; text-align: center; color: var(--fg); }
+.pw-mi:hover { background: var(--glow); }
+.pw-mi.disabled { color: var(--dim); cursor: default; }
+.pw-mi.disabled:hover { background: transparent; }
+.pw-mi-head { color: var(--dim); padding: 3px 10px 0 4px; }
+.pw-mi-sep { height: 1px; background: var(--glow); margin: 3px 0; }
+
+/* dialogs */
+.pw-dialog-bg {
+  position: absolute; inset: 0; z-index: 80; pointer-events: auto;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center; padding: 10px;
+}
+.pw-dialog {
+  background: var(--bg); border: 1px solid var(--dim); box-shadow: 0 0 0 1px var(--glow), inset 0 0 0 1px var(--glow);
+  padding: 10px 12px; max-width: 100%; max-height: 100%; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.pw-dialog-title { color: var(--fg); }
+.pw-dialog-body { color: var(--mid); white-space: pre-wrap; text-shadow: none; }
+.pw-dialog-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }

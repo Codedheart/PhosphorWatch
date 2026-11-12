@@ -1,0 +1,32 @@
+PHOSPHORWATCH  -  always-on-top Twitch stream window
+===================================================
+
+No install needed.
+
+1. Right-click the zip > "Extract All..." > Extract.
+   (Don't run it from inside the zip, and keep the folder together:
+    PhosphorWatch.exe needs the "_internal" folder next to it.)
+
+2. Double-click PhosphorWatch.exe.
+   If Windows says "Windows protected your PC": click "More info",
+   then "Run anyway". (It shows that for any small app that isn't
+   signed by a big company.)
+
+Using it:
+  Type a channel name (or paste a twitch.tv link) > WATCH
+  +            save the channel to your favorites list
+  Sign in      bottom right of the channel screen. Sign in once and
+               your subscriptions / Turbo apply, so channels you're
+               subbed to play without ads (same as in a browser).
+
+While a stream plays, move the mouse over it to show the bar:
+  drag the title to move the window, drag the right or bottom edge
+  (or the corner) to resize. House = back to channels, pin = always
+  on top, then minimize and close.
+
+Right-click the bar (or press the menu button) for color palettes,
+opacity, updates, sign-out and the settings folder.
+
+It uses Microsoft Edge WebView2, which Windows 10 and 11 already have.
+Your favorites, settings and Twitch sign-in are saved in
+%APPDATA%\PhosphorWatch, so updates never touch them.
